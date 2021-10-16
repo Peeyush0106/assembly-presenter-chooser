@@ -40,18 +40,19 @@ function setStudentNames() {
 
         document.getElementById("checkbox-" + parseInt(i)).onclick = function () {
             console.log(document.getElementById("checkbox-" + parseInt(i)).checked);
+            studentsData[studentNames[parseInt(i)]].done = document.getElementById("checkbox-" + parseInt(i)).checked;
             if (document.getElementById("checkbox-" + parseInt(i)).checked) {
                 leftOutStudentsData = {};
                 setStudentData(parseInt(i), studentName);
                 setLeftOutStudentData(studentName);
                 document.getElementById("student-" + (parseInt(i) + 1)).style.color = "red";
                 document.getElementById("student-" + (parseInt(i) + 1)).style.textDecoration = "line-through";
-                updateStudentData();
             }
             else {
                 document.getElementById("student-" + (parseInt(i) + 1)).style.color = "black";
                 document.getElementById("student-" + (parseInt(i) + 1)).style.textDecoration = "none";
             }
+            updateStudentData();
             // database.ref("Students/" + studentNames[parseInt(i)]).update({
             //     next: false
             // }).then(() => {
@@ -63,7 +64,7 @@ function setStudentNames() {
     }
 }
 
-setInterval(getStudentData, 500);
+setInterval(getStudentData, 100);
 
 function setStudentData(no, studentName) {
     const studentData = {
