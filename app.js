@@ -46,6 +46,7 @@ function setStudentNames() {
                 setLeftOutStudentData(studentName);
                 document.getElementById("student-" + (parseInt(i) + 1)).style.color = "red";
                 document.getElementById("student-" + (parseInt(i) + 1)).style.textDecoration = "line-through";
+                updateStudentData();
             }
             else {
                 document.getElementById("student-" + (parseInt(i) + 1)).style.color = "black";
