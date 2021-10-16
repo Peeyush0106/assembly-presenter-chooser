@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assembly Presenter Chooser</title>
+</head>
+
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+<script src="loading.js"></script>
+<script src="p5.js"></script>
+<script src="p5.play.js"></script>
+
+<body>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="popup-styles.css">
+
+    <div id="content-for-connected-users">
+        <div style="font-size: large;">
+            All student names:
+            <br>
+        </div>
+        <ul id="student-list">
+        </ul>
+        <button onclick="getRandomStudent()">Return Random Student</button>
+        <button onclick="restartRound()">Restart Student Round</button>
+        <script src="app.js"></script>
+
+        <div class="student-choice-pop-up">
+            <div class="formPopup" id="popupForm" style="display: none;">
+                <form class="formContainer">
+                    <p id="presenter-name"></p>
+                    <button type="button" class="btn" onclick="acceptStudent()">Accept</button>
+                    <button type="button" class="btn cancel" onclick="getRandomStudent()">Decline</button>
+                    <button type="button" class="btn cancel"
+                        onclick='document.getElementById("popupForm").style.display = "none"'
+                        style="background-color: aqua; color: black;">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html>
