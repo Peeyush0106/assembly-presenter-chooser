@@ -1,5 +1,6 @@
 html, body {
     font-family: comic sans ms;
+    background-color: white;
 }
 
 #student-list {
@@ -16,4 +17,12 @@ input[type="checkbox"]:hover, label:hover {
     background-color: blueviolet;
     color: lightgreen;
     cursor: pointer;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+#student-name {
+    text-transform: capitalize;
 }

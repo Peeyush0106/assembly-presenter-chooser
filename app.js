@@ -1,4 +1,5 @@
 var loading_show = true;
+var selectedStudent = "none";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDE4LcGILX1TGmxT2zFkgsC_1Mh5FwmKzQ",
@@ -38,28 +39,15 @@ function setStudentNames() {
         document.getElementById("student-list").appendChild(li);
         li.id = "student-" + (parseInt(i) + 1);
 
-        document.getElementById("checkbox-" + parseInt(i)).onclick = function () {
+        document.getElementById("checkbox-" + parseInt(i)).onclick = function (e) {
+            e.preventDefault();
             console.log(document.getElementById("checkbox-" + parseInt(i)).checked);
             studentsData[studentNames[parseInt(i)]].done = document.getElementById("checkbox-" + parseInt(i)).checked;
-            if (document.getElementById("checkbox-" + parseInt(i)).checked) {
-                leftOutStudentsData = {};
-                setStudentData(parseInt(i), studentName);
-                setLeftOutStudentData(studentName);
-                document.getElementById("student-" + (parseInt(i) + 1)).style.color = "red";
-                document.getElementById("student-" + (parseInt(i) + 1)).style.textDecoration = "line-through";
-            }
-            else {
-                document.getElementById("student-" + (parseInt(i) + 1)).style.color = "black";
-                document.getElementById("student-" + (parseInt(i) + 1)).style.textDecoration = "none";
-            }
-            updateStudentData();
-            // database.ref("Students/" + studentNames[parseInt(i)]).update({
-            //     next: false
-            // }).then(() => {
-            //     database.ref("Students/" + studentNames[parseInt(i)]).get().then((data) => {
-            //         console.log(data.val());
-            //     })
-            // });
+            document.getElementById("studentCard").style.display = "block";
+            selectedStudent = studentsData[studentNames[parseInt(i)]];
+            document.getElementById("student-name").innerText = selectedStudent.name;
+            console.log(selectedStudent);
+            // updateStudentData(true);
         };
     }
 }
@@ -142,7 +130,7 @@ function getRandomStudent() {
     document.getElementById("popupForm").style.display = "block";
 }
 
-function updateStudentData() {
+function updateStudentData(reload) {
     database.ref("/").update({
         Students: studentsData
     }).then(() => {
@@ -151,7 +139,7 @@ function updateStudentData() {
             setStudentData(l, studentName);
             setLeftOutStudentData(studentName);
         }
-        getStudentData();
+        if (reload) location.reload();
     });
 }
 
@@ -201,5 +189,39 @@ function checkConnectionEveryHalfSeconds() {
 }
 
 function restartRound() {
-    database.ref("/").remove().then(location.reload());
+    database.ref("Students").remove().then(location.reload());
+}
+
+function nextMarkStudent() {
+    for (const i in studentsData) {
+        const student = studentsData[i];
+        student.next = false;
+    }
+    studentsData[selectedStudent.name].next = true;
+    updateStudentData(true);
+}
+
+function unnextMarkStudent() {
+    studentsData[selectedStudent.name].next = false;
+    updateStudentData(true);
+}
+
+function doneMarkStudent() {
+    database.ref("Students/" + selectedStudent.name).update({
+        done: true
+    }).then(() => {
+        location.reload();
+    });
+}
+
+function undoneMarkStudent() {
+    database.ref("Students/" + selectedStudent.name).update({
+        done: false
+    }).then(() => {
+        location.reload();
+    });
+}
+
+function cancelMarkStudent() {
+    document.getElementById("studentCard").style.display = "none";
 }

@@ -2,22 +2,7 @@
     box-sizing: border-box;
 }
 
-.openBtn {
-    display: flex;
-    justify-content: left;
-}
-
-.openButton {
-    border: none;
-    border-radius: 5px;
-    background-color: #1c87c9;
-    color: white;
-    padding: 14px 20px;
-    cursor: pointer;
-    position: fixed;
-}
-
-.student-choice-pop-up {
+.student-choice-pop-up, .student-card-pop-up {
     position: relative;
     text-align: center;
     width: 100%;
@@ -69,4 +54,24 @@
 
 .formContainer .btn:hover, .openButton:hover {
     opacity: 1;
+}
+
+#next-btn {
+    background-color: blue;
+    color: white;
+}
+
+#unnext-btn {
+    background-color: rebeccapurple;
+    color: white;
+}
+
+#done-btn {
+    background-color: green;
+    color: white;
+}
+
+#undone-btn {
+    background-color: red;
+    color: white;
 }

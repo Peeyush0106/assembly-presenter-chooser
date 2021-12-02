@@ -6,15 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assembly Presenter Chooser</title>
+    <script src="firebase-app.js"></script>
+    <script src="firebase-analytics.js"></script>
+    <script src="firebase-database.js"></script>
+    <script src="firebase-auth.js"></script>
+    <script src="loading.js"></script>
+    <script src="p5.js"></script>
+    <script src="p5.play.js"></script>
 </head>
-
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-<script src="loading.js"></script>
-<script src="p5.js"></script>
-<script src="p5.play.js"></script>
 
 <body>
     <link rel="stylesheet" href="style.css">
@@ -38,12 +37,37 @@
                     <button type="button" class="btn" onclick="acceptStudent()">Accept</button>
                     <button type="button" class="btn cancel" onclick="getRandomStudent()">Decline</button>
                     <button type="button" class="btn cancel"
-                        onclick='document.getElementById("popupForm").style.display = "none"'
+                        onclick="document.getElementById('popupForm').style.display = 'none';"
                         style="background-color: aqua; color: black;">Cancel</button>
                 </form>
             </div>
         </div>
+        <div class="student-card-pop-up">
+            <div class="formPopup" id="studentCard" style="display: none;">
+                <form class="formContainer">
+                    <p id="student-name"></p>
+                    <button type="button" id="next-btn" class="btn" onclick="nextMarkStudent()">
+                        Mark as Next Participant
+                    </button>
+                    <button type="button" id="unnext-btn" class="btn" onclick="unnextMarkStudent()">
+                        Unmark as Next Participant
+                    </button>
+                    <button type="button" id="done-btn" class="btn" onclick="doneMarkStudent()">
+                        Mark as Done
+                    </button>
+                    <button type="button" id="undone-btn" class="btn" onclick="undoneMarkStudent()">
+                        Mark as Un-Done
+                    </button>
+                    <button type="button" class="btn cancel" onclick="cancelMarkStudent()"
+                        style="background-color: aqua; color: black;">
+                        Cancel
+                    </button>
+                </form>
+            </div>
+        </div>
     </div>
+
+
 </body>
 
 </html>
