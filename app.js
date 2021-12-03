@@ -225,3 +225,62 @@ function undoneMarkStudent() {
 function cancelMarkStudent() {
     document.getElementById("studentCard").style.display = "none";
 }
+
+function downloadDataAsTxt() {
+    var data = `Done students:\n`;
+    var nextParticipant;
+    for (const i in studentsData) {
+        const student = studentsData[i];
+        if (student.done) data += ` - ` + student.name + `\n`;
+        if (student.next) nextParticipant = student.name;
+    }
+    data = data.slice(0, data.length - 1);
+    data += `\n\nNext participant: ` + nextParticipant + "\n\nRemaining people:\n";
+    var remainingPeople = [];
+    for (const i in studentsData) {
+        const student = studentsData[i];
+        if (!student.done && !student.next) data += ` - ` + student.name + `\n`;
+    }
+    data = data.slice(0, data.length - 1);
+
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    fileName = months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear() + " - Presenter Data";
+
+    var c = document.createElement("a");
+    c.download = fileName + ".txt";
+    var t = new Blob([data], {
+        type: "text/plain"
+    });
+    c.href = window.URL.createObjectURL(t);
+    c.click();
+}
+
+function downloadDataAsHTML() {
+    var data = `<h1> Done students:<br>`;
+    var nextParticipant;
+    for (const i in studentsData) {
+        const student = studentsData[i];
+        if (student.done) data += ` - ` + student.name + "<br>";
+        if (student.next) nextParticipant = student.name;
+    }
+    data = data.slice(0, data.length - 1);
+    data += `<br><br>Next participant: ` + nextParticipant + `<br><br>Remaining people: <br>`;
+    var remainingPeople = [];
+    for (const i in studentsData) {
+        const student = studentsData[i];
+        if (!student.done && !student.next) data += ` - ` + student.name + `<br>`;
+    }
+    data = data.slice(0, data.length - 1);
+    data += `</h1>`;
+
+    var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    fileName = months[new Date().getMonth()] + " " + new Date().getDate() + ", " + new Date().getFullYear() + " - Presenter Data";
+
+    var c = document.createElement("a");
+    c.download = fileName + ".html";
+    var t = new Blob([data], {
+        type: "text/html"
+    });
+    c.href = window.URL.createObjectURL(t);
+    c.click();
+}
